@@ -8,6 +8,10 @@ const app = express();
 //Middleware
 app.use(cors())
 app.use(morgan())
+
+const db = require('./models')
+const Category = db.Category
+const Product = db.Product
 //Router files
 
 //Routes
@@ -20,7 +24,9 @@ app.get('/api/test', (req, res) => {
 })
 
 app.get('/api/categories', (req, res, next) => {
-  Category.findAll()
+  Category.findAll({
+    include: [{ model: Product }]
+  })
     .then(categories => {
       res.json({
         categories
