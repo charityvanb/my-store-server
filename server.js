@@ -11,11 +11,26 @@ app.use(morgan())
 //Router files
 
 //Routes
-app.get("/api/test", (req, res, next) => {
-    res.json({
-        message: "Route working"
+app.get('/api/test', (req, res) => {
+  res.json({
+    message: 'Route working'
+  })
+  // const error = new Error('it blew up')
+  // next(error)
+})
+
+app.get('/api/categories', (req, res, next) => {
+  Category.findAll()
+    .then(categories => {
+      res.json({
+        categories
+      })
+    })
+    .catch(error => {
+      next(error)
     })
 })
+
 //error handling
 // The following 2 `app.use`"s MUST follow ALL your routes/middleware
 app.use(notFound)
