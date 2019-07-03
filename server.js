@@ -37,6 +37,19 @@ app.get('/api/categories', (req, res, next) => {
     })
 })
 
+app.get('/api/products', (req, res, next) => {
+  Product.findAll({
+    include: [{model: Category}]
+  })
+  .then(products =>
+    res.json({
+      products
+    }))
+    .catch(error => {
+      next(error)
+    })
+})
+
 //error handling
 // The following 2 `app.use`"s MUST follow ALL your routes/middleware
 app.use(notFound)
