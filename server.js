@@ -6,6 +6,8 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 const PORT = process.env.PORT || 8080
 const app = express(process.env.STRIPE_SECRET_KEY)
 
+//seeing why stuff isn't pushing right
+
 //Middleware
 app.use(cors())
 app.use(morgan())
