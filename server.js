@@ -1,14 +1,16 @@
-require('dotenv').config();
-const express = require("express");
-const morgan = require("morgan");
-const cors = require("cors");
+require('dotenv').config()
+const express = require("express")
+const morgan = require("morgan")
+const cors = require("cors")
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
-const PORT = process.env.PORT || 8080;
-const app = express(process.env.STRIPE_SECRET_KEY);
+const PORT = process.env.PORT || 8080
+const app = express(process.env.STRIPE_SECRET_KEY)
 
 //Middleware
 app.use(cors())
 app.use(morgan())
+// instead of body parser
+app.use(express.json())
 
 const db = require('./models')
 const Category = db.Category
@@ -51,7 +53,7 @@ app.get('/api/products', (req, res, next) => {
     })
 })
 
-app.get('api/products/:id', (req, res, next) => {
+app.get('/api/products/:id', (req, res, next) => {
   const id = req.params.id
 
   Product.findByPk(id, {
@@ -63,7 +65,7 @@ app.get('api/products/:id', (req, res, next) => {
       })
     })
     .catch(error => {
-      console.log(error)
+      next(error)
     })
 })
 
@@ -71,14 +73,8 @@ app.get('api/products/:id', (req, res, next) => {
 // The following 2 `app.use`"s MUST follow ALL your routes/middleware
 
 app.post('/api/checkout', async (req, res, next) => {
-  const lineItems = [{
-    name: 'T-shirt',
-    description: 'Comfortable cotton t-shirt',
-    images: ['http://lorempixel.com/400/200/'],
-    amount: 500,
-    currency: 'usd',
-    quantity: 1,
-  }]
+  const lineItem = req.body 
+  const lineItems= [lineItem]
 
   try {
     // create session
