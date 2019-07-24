@@ -28,17 +28,20 @@ const checkJwt = jwt({
   algorithm: ['RS256']
 })
 
+
 //seeing why stuff isn't pushing right
 
 //Middleware
 app.use(cors())
-app.use(morgan())
+app.use(morgan('combined'))
 // instead of body parser
 app.use(express.json())
 
+//sequelize models
 const db = require('./models')
 const Category = db.Category
 const Product = db.Product
+
 //Router files
 
 //Routes
@@ -107,7 +110,8 @@ app.get('/api/external', checkJwt, (req, res) => {
 
 app.post('/api/checkout', async (req, res, next) => {
   const lineItem = req.body 
-  const lineItems= [lineItem]
+  //error says you must either pass subscription data or line items
+  const lineItems = [lineItem]
 
   try {
     // create session
