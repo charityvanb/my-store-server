@@ -5,11 +5,19 @@ This is a store front with secure checkout with mudular parts intended to be reu
 This was an attempt to build a storefront with a secure checkout and practice some of my React.js and Node skills.
 
 //User Experience
-Shop allows viewers to see wares and select and securely purchase them.
+Shop allows viewers to see wares and select and securely purchase them using Stripe.
 
 //Future Features
 Users will be able to log in and make wish lists for future shopping.
 
 //Tech
-Knex, Postgress, Node.js, React.js, 
+Knex, Postgress, Node.js, React.js, Stripe.
+
+//Front-end on Github
+https://github.com/charityvanb/my-store-client
+
+//Back-end on Github
+https://github.com/charityvanb/my-store-server
+
+
 
